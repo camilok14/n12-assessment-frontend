@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - 27017:27017
+  n12-assessment-backend:
+    container_name: n12-assessment-backend
+    image: 'camilok14/n12-assessment-backend'
+    ports:
+      - 3000:3000
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017/n12-assessment-database
+    depends_on:
+      - mongo
+  n12-assessment-frontend:
+    container_name: n12-assessment-frontend
+    image: 'camilok14/n12-assessment-frontend'
+    depends_on:
+      - n12-assessment-backend
+    ports:
+      - 80:80
+
+    
